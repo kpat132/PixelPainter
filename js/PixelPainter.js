@@ -1,4 +1,11 @@
-//Structure
+//Global Variables
+let storedColor;
+let rowCount = 0;
+let cellCount = 0;
+let colors = ['#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', 'FF0000', 'a64dff','ff0066','19e619','000000']; //Add colors
+
+
+//Creating Div elements and Buttons 
 let createDivOne = document.createElement("div");
 createDivOne.setAttribute("id", "col-3");
 document.getElementById("pixelPainter").appendChild(createDivOne);
@@ -30,10 +37,18 @@ clear.id = "clear";
 buttonContainer.appendChild(clear);
 clear.innerText = "Clear";
 
-// Create a grid
-let rowCount = 0;
-let cellCount = 0;
+let mouseOn = document.createElement("button");
+mouseOn.id = "mouseOn";
+buttonContainer.appendChild(mouseOn);
+mouseOn.innerText = "PEN ON";
 
+let mouseOff = document.createElement("button");
+mouseOff.id = "mouseOff";
+buttonContainer.appendChild(mouseOff);
+mouseOff.innerText = "PEN OFF";
+
+
+// Create a grid
 function createGrid(row, column, parent) {
 
   for (let i = 0; i < row; i++) {
@@ -55,13 +70,10 @@ function createGrid(row, column, parent) {
     }
 }
 
-// Create Color Picker Grid 2x2
-createGrid(2,2,"#swatch");
+// Grid that contains all the colors
+createGrid(3,3,"#swatch");
 
-// Add colors
-let colors = ['#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
-
-// Assign colors to the color picker
+// Assign colors to a square of the swatch grid.
 let colorPickerCells = document.querySelectorAll("#swatch .cell");
 
 function addColors(arr){
@@ -74,24 +86,20 @@ addColors(colorPickerCells);
 // Assign event listener to the colorPicker
 swatch.addEventListener('click', colorPicker);
 
-let storedColor;
-
+//Assigns the color that has been clicked to a variable, storedColor
 function colorPicker(event) {
-  
-  // Take clicked color and assign to variable
   if(event.target.classList.contains("cell")){
     storedColor = event.target.style.backgroundColor;
     console.log(storedColor); 
   }
 }
 
-//Create grid
-createGrid(6,6,"#canvas");
+//Create grid for the empty grid
+createGrid(8,8,"#canvas");
 
 // Add event listeners to grid cells
+//Is the event target is in the class, cell, then the stored color will be added to the chosen cell
 canvas.addEventListener('click', colorChanger);
-canvas.addEventListener('mouseover', colorChanger);
-
 function colorChanger(event) {
   
   if( event.target.classList.contains("cell") ){
@@ -100,7 +108,7 @@ function colorChanger(event) {
   }
 }
 
-// Erase button: add event listener
+// Added event listener to the Erase button
 eraser.addEventListener('click', function() {
   storedColor = "#FFF";
 });
@@ -114,4 +122,12 @@ clear.addEventListener('click', function(){
     canvasCells[i].style.backgroundColor = "#FFF"; 
   }
   console.log("cleared!");
+});
+//Buttons that add the mouseover functionality one the button 'PEN ON' is clicked
+mouseOn.addEventListener('click', function() {
+  canvas.addEventListener('mouseover', colorChanger);
+});
+//Once 'PEN OFF' is clicked the functionality of mouseover gets removed and returns to the default block by block.
+mouseOff.addEventListener('click', function() {
+  canvas.removeEventListener('mouseover', colorChanger);
 });
