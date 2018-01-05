@@ -1,0 +1,46 @@
+h1 {
+  font-size: 50px;
+  font-family: monospace;
+  margin: 10px 55px;
+}
+#col-3 {
+  width: 30%;
+  float: left;
+  text-align: center;
+}
+#col-7 {
+  width: 70%;
+  float: left;
+}
+#col-3:after, #col-7:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cell {
+  width:50px;
+  height: 50px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: -1px 0 0 -1px;
+}
+button {
+  padding: 5px 10px;
+  margin:0 10px;
+}
+.buttonContainer{
+  margin:20px;
+}
+#eraser {
+  border: 3px solid blue;
+  
+} 
+#clear {
+  border: 3px solid #dc143c;
+}
+#mouseOn {
+  border: 3px solid #e0e022;
+}
+#mouseOff {
+  border: 3px solid #d813c8;
+}
